@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Document</title>
 </head>
-
 <body>
-      <canvas id="canvas" width="400px" height="400px">
-
-      </canvas>
-
+      <canvas id="canvas" width="400px" height="400px"></canvas>
 </body>
 <script>
       window.onload = function () {
@@ -19,7 +14,6 @@
             box = canvas.getContext("2d");
 
             document.addEventListener("keydown", function (e) {
-                  console.log(e.keyCode);
                   switch (e.keyCode) {
                         case 65:
                               velX = -1;
@@ -39,12 +33,12 @@
                               break;
                   }
             });
-
+/* função recebe dois parametros, uma a função a se executada, e o segundo, o tempo de execução*/
             setInterval(() => {
                   game();
             }, 100);
       }
-
+/* váriáveis */
       snake = [];
       positionX = 10;
       positionY = 10;
@@ -73,11 +67,10 @@
             box.fillStyle = "#94FF94";
             box.fillRect(0, 0, canvas.width, canvas.height);
 
-
-            
-
             box.fillStyle = "#000000";
             for (var i = 0; i < snake.length; i++) {
+                  /*Fill Style serve para preencher um local com cor */
+                  /* fill rect é responsavel por desenhar algo */
                   box.fillRect(snake[i].x * grid, snake[i].y * grid, grid - 1, grid - 1);
                   if (snake[i].x == positionX && snake[i].y == positionY) {
                         tam = 5;
@@ -101,7 +94,5 @@
                   foodY = Math.floor(Math.random() * grid);
             }
       }
-
 </script>
-
 </html>
