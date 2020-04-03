@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Document</title>
+</head>
+
+<body>
+      <canvas id="canvas" width="400px" height="400px">
+
+      </canvas>
+
+</body>
+<script>
+      window.onload = function () {
+            canvas = document.getElementById("canvas")
+            box = canvas.getContext("2d");
+
+            document.addEventListener("keydown", function (e) {
+                  console.log(e.keyCode);
+                  switch (e.keyCode) {
+                        case 65:
+                              velX = -1;
+                              velY = 0;
+                              break;
+                        case 87:
+                              velX = 0;
+                              velY = -1;
+                              break;
+                        case 68:
+                              velX = 1;
+                              velY = 0;
+                              break;
+                        case 83:
+                              velX = 0;
+                              velY = 1;
+                              break;
+                  }
+            });
+
+            setInterval(() => {
+                  game();
+            }, 100);
+      }
+
+      snake = [];
+      positionX = 10;
+      positionY = 10;
+      foodX = 15;
+      foodY = 15;
+      velX = 0;
+      velY = 0;
+      grid = 20;
+      tam = 5;
+
+      function game() {
+            positionX += velX;
+            positionY += velY;
+            if (positionX < 0) {
+                  positionX = grid;
+            }
+            if (positionX > grid) {
+                  positionX = 0;
+            }
+            if (positionY < 0) {
+                  positionY = grid;
+            }
+            if (positionY > grid) {
+                  positionY = 0;
+            }
+            box.fillStyle = "#94FF94";
+            box.fillRect(0, 0, canvas.width, canvas.height);
+
+
+            
+
+            box.fillStyle = "#000000";
+            for (var i = 0; i < snake.length; i++) {
+                  box.fillRect(snake[i].x * grid, snake[i].y * grid, grid - 1, grid - 1);
+                  if (snake[i].x == positionX && snake[i].y == positionY) {
+                        tam = 5;
+                  }
+            }
+            /*A função push */
+            snake.push({ x: positionX, y: positionY })
+
+
+            /*A função Shift retira cada pimeiro valor de uma array, no caso a cada execução */
+            while (snake.length > tam) {
+                  snake.shift();
+            }
+            /*** food ***/
+            box.fillStyle = "#FF0000";
+            box.fillRect(foodX * grid, foodY * grid, grid - 1, grid - 1);
+
+            if (positionX == foodX && positionY == foodY) {
+                  tam++;
+                  foodX = Math.floor(Math.random() * grid);
+                  foodY = Math.floor(Math.random() * grid);
+            }
+      }
+
+</script>
+
+</html>
